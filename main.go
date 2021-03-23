@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 // result: Struct to store final sum value
@@ -16,10 +18,13 @@ type result struct {
 
 // setting up routes
 func initializeRouter() {
+	godotenv.Load()
+	port := os.Getenv("PORT")
 	router := mux.NewRouter()
 	router.HandleFunc("/{ip1:[0-9]+}", AddTen).Methods("GET")
 	router.HandleFunc("/{ip1:[0-9]+}/{ip2:[0-9]+}", SumTwoVal).Methods("GET")
-	http.ListenAndServe(":5000", router)
+	PORT := fmt.Sprintf("%s", port)
+	http.ListenAndServe(":"+PORT, router)
 
 }
 
