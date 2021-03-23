@@ -1,5 +1,60 @@
-<h1>Welcome To my Golang backend API</h1>
-<h4>The entire Api is written is Golang</h4>
-<h4>Use the api as shown below</h5>
-<h5>/7 is add the given value to 10 to result will be 17</h5>
-<h5>/7/23 : add the given values i..e 7+23 to result will be 30</h5>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content=
+		"width=device-width,
+		initial-scale=1.0" />
+
+	<title>Digital Clock</title>
+
+	<style>
+		#clock {
+			font-size: 175px;
+			width: 900px;
+			margin: 200px;
+			text-align: center;
+			border: 2px solid black;
+			border-radius: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="clock">8:10:45</div>
+
+	<script>
+		setInterval(showTime, 1000);
+		function showTime() {
+			let time = new Date();
+			let hour = time.getHours();
+			let min = time.getMinutes();
+			let sec = time.getSeconds();
+			am_pm = "AM";
+
+			if (hour > 12) {
+				hour -= 12;
+				am_pm = "PM";
+			}
+			if (hour == 0) {
+				hr = 12;
+				am_pm = "AM";
+			}
+
+			hour = hour < 10 ? "0" + hour : hour;
+			min = min < 10 ? "0" + min : min;
+			sec = sec < 10 ? "0" + sec : sec;
+
+			let currentTime = hour + ":"
+				+ min + ":" + sec + am_pm;
+
+			document.getElementById("clock")
+				.innerHTML = currentTime;
+		}
+
+		showTime();
+	</script>
+</body>
+
+</html>
