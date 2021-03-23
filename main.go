@@ -33,7 +33,7 @@ func initializeRouter() {
 
 // SumTwoVal: func to add two input and return result
 func Home(w http.ResponseWriter, r *http.Request) {
-	fp := path.Join("templates", "index.html")
+	fp := path.Join("templates", "home.html")
 	tmpl, err := template.ParseFiles(fp)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
