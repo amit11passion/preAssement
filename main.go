@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
 	"os"
+	"path"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -21,10 +23,26 @@ func initializeRouter() {
 	godotenv.Load()
 	port := os.Getenv("PORT")
 	router := mux.NewRouter()
+	router.HandleFunc("/", Home).Methods("GET")
 	router.HandleFunc("/{ip1:[0-9]+}", AddTen).Methods("GET")
 	router.HandleFunc("/{ip1:[0-9]+}/{ip2:[0-9]+}", SumTwoVal).Methods("GET")
 	PORT := fmt.Sprintf("%s", port)
 	http.ListenAndServe(":"+PORT, router)
+
+}
+
+// SumTwoVal: func to add two input and return result
+func Home(w http.ResponseWriter, r *http.Request) {
+	fp := path.Join("templates", "index.html")
+	tmpl, err := template.ParseFiles(fp)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.Execute(w, ""); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 
 }
 
